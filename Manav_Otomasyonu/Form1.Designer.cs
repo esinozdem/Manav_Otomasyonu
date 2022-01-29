@@ -38,6 +38,8 @@ namespace Manav_Otomasyonu
             this.yeniMüşteriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.categorilerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.kategoriListesiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.yeniKategoriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -96,15 +98,18 @@ namespace Manav_Otomasyonu
             // yeniMüşteriToolStripMenuItem
             // 
             this.yeniMüşteriToolStripMenuItem.Name = "yeniMüşteriToolStripMenuItem";
-            this.yeniMüşteriToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.yeniMüşteriToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.yeniMüşteriToolStripMenuItem.Text = "Yeni Müşteri";
             this.yeniMüşteriToolStripMenuItem.Click += new System.EventHandler(this.yeniMüşteriToolStripMenuItem_Click);
             // 
             // categorilerToolStripMenuItem
             // 
+            this.categorilerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.kategoriListesiToolStripMenuItem,
+            this.yeniKategoriToolStripMenuItem});
             this.categorilerToolStripMenuItem.Name = "categorilerToolStripMenuItem";
-            this.categorilerToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
-            this.categorilerToolStripMenuItem.Text = "Categoriler";
+            this.categorilerToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
+            this.categorilerToolStripMenuItem.Text = "Kategoriler";
             // 
             // panel1
             // 
@@ -113,6 +118,20 @@ namespace Manav_Otomasyonu
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(598, 359);
             this.panel1.TabIndex = 1;
+            // 
+            // kategoriListesiToolStripMenuItem
+            // 
+            this.kategoriListesiToolStripMenuItem.Name = "kategoriListesiToolStripMenuItem";
+            this.kategoriListesiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.kategoriListesiToolStripMenuItem.Text = "Kategori Listesi";
+            this.kategoriListesiToolStripMenuItem.Click += new System.EventHandler(this.kategoriListesiToolStripMenuItem_Click);
+            // 
+            // yeniKategoriToolStripMenuItem
+            // 
+            this.yeniKategoriToolStripMenuItem.Name = "yeniKategoriToolStripMenuItem";
+            this.yeniKategoriToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.yeniKategoriToolStripMenuItem.Text = "Yeni Kategori";
+            this.yeniKategoriToolStripMenuItem.Click += new System.EventHandler(this.yeniKategoriToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -146,6 +165,8 @@ namespace Manav_Otomasyonu
         private System.Windows.Forms.ToolStripMenuItem yeniÜrünToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem müşteriListesiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem yeniMüşteriToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kategoriListesiToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem yeniKategoriToolStripMenuItem;
     }
 }
 

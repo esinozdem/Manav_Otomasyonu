@@ -14,60 +14,121 @@ namespace Manav_Otomasyonu
     using Entities;
     public partial class ProductForm : Form
     {
-        ProductRepo productRepo;
+        ProductsRepo productRepo;
         CustomersRepo customersRepo;
+        CategoryRepo categoryRepo;
+        Products selectedProduct = null;
         public ProductForm()
         {
             InitializeComponent();
-            productRepo = new ProductRepo();
+            productRepo = new ProductsRepo();
             customersRepo = new CustomersRepo();
+            categoryRepo = new CategoryRepo();
         }
 
         private void ProductForm_Load(object sender, EventArgs e)
         {
-            FillControls();
+            FillForm();
         }
-        Products selecteditem = null;
+
+        private void FillForm()
+        {
+            FillControls();
+            FillDatas();
+        }
+
+    
+
+        private void FillDatas()
+        {
+            int ProductId = (Convert.ToInt32(this.Tag));
+            if (ProductId > 0)
+            {
+                var Product = productRepo.GetById(ProductId);
+                if (Product != null)
+                {
+                    selectedProduct = Product;
+                    txtProductName.Text = Product.ProductName;
+                    txtQuantityPerUnit.Text = Product.QuantityPerUnit;
+                    nuUnitPrice.Value = Convert.ToDecimal(Product.UnitPrice);
+                    nuUnitsInStock.Value = Convert.ToDecimal(Product.UnitsInStock);
+                    nuUnitsOnOrder.Value = Convert.ToDecimal(Product.UnitOnOrder);
+                    cmbCategories.SelectedValue = Product.CategoryId;
+                    cmbCustomers.SelectedValue = Product.CustomerId;
+
+                }
+
+            }
+        }
         private void FillControls()
         {
             FillCustomers();
+            FillCategory();
+        }
+
+        private void FillCategory()
+        {
+            var Category = categoryRepo.Get();
+            cmbCategories.DataSource = Category;
+            cmbCategories.ValueMember = "CategoryId";
+            cmbCategories.DisplayMember = "CategoryName";
         }
 
         private void FillCustomers()
         {
-            var customers = customersRepo.Get();
-            cmbCustomers.DisplayMember = "CustomersName";
-            cmbCustomers.ValueMember = "CustomersId";
-            cmbCustomers.DataSource = customers;
+            var Customers = customersRepo.Get();
+            cmbCustomers.DataSource = Customers;
+            cmbCustomers.ValueMember = "CustomerId";
+            cmbCustomers.DisplayMember = "CustomerName";
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            
+            if (string.IsNullOrEmpty(txtProductName.Text))
+            {
+                MessageBox.Show("Lütfen Ürün Adı Giriniz.", "Ürün Formu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             FormSave();
         }
 
         private void FormSave()
         {
-            if (this.selecteditem == null)
+            if (selectedProduct == null)
             {
-                this.selecteditem = new Products();
-
+                selectedProduct = new Products();
             }
-            this.selecteditem = new Products();
-            this.selecteditem.ProductName = txtProductName.Text;
-            //this.selecteditem.CustomerId = Convert.ToInt32(cmbCustomers.SelectedValue);
-            this.selecteditem.QuantityPerUnit = txtQuantityPerUnit.Text;
-            this.selecteditem.UnitPrice = nuUnitPrice.Value;
-            this.selecteditem.UnitsInStock = Convert.ToInt16(nuUnitsInStock.Value);
-            this.selecteditem.UnitOnOrder = Convert.ToInt16(nuUnitsOnOrder.Value);
-            if (Convert.ToInt32(this.Tag) == 0)
+            selectedProduct.ProductName = txtProductName.Text;
+            selectedProduct.CustomerId = Convert.ToInt32(cmbCustomers.SelectedValue);
+            selectedProduct.CategoryId = Convert.ToInt32(cmbCategories.SelectedValue);
+            selectedProduct.QuantityPerUnit = txtQuantityPerUnit.Text;
+            selectedProduct.UnitPrice = Convert.ToDecimal(nuUnitPrice.Value);
+            selectedProduct.UnitsInStock = Convert.ToInt16(nuUnitsInStock.Value);
+            selectedProduct.UnitOnOrder = Convert.ToInt16(nuUnitsOnOrder.Value);
+            if (Convert.ToInt32(this.Tag)==0)
             {
-                this.selecteditem.ProductId = productRepo.Create(this.selecteditem);
-                this.Tag = this.selecteditem.ProductId;
+                int ProductId = productRepo.Create(selectedProduct);
+                selectedProduct.ProductId = ProductId;
+                this.Tag = ProductId;
             }
             else
             {
-                productRepo.Update(this.selecteditem);
+                selectedProduct.ProductId = productRepo.Update(selectedProduct);
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (selectedProduct==null)
+            {
+                return;
+            }
+            else
+            {
+                int id = selectedProduct.ProductId;
+                productRepo.Delete(id);
+                this.Close();
+                 
             }
         }
     }

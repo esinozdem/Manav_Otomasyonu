@@ -8,10 +8,13 @@ namespace Manav_Otomasyonu.Repository
 {
     using Entities;
     using System.Data.SqlClient;
-    public class CustomersRepo : RepositoryBase, IRepository <Customers>
+    using System.Data;
+    using System.Windows.Forms;
+
+    public class CustomersRepo : RepositoryBase, IRepository<Customers>
     {
 
-        public  void Create(Customers item)
+        public int Create(Customers item)
         {
             int id = 0;
             try
@@ -32,7 +35,6 @@ namespace Manav_Otomasyonu.Repository
             }
             catch (Exception)
             {
-
                 throw;
             }
             finally
@@ -40,66 +42,10 @@ namespace Manav_Otomasyonu.Repository
                 if (this.Connection.State == System.Data.ConnectionState.Open) this.Connection.Close();
             }
 
-
-
-        }
-        public int Createe(Customers item)
-        {
-            int id = 0;
-            try
-            {
-                SqlCommand command = new SqlCommand("Sp_Customer_Create", this.Connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("CustomerId", item.CustomerId);
-                command.Parameters.AddWithValue("CustomerName", item.CustomerName);
-                command.Parameters.AddWithValue("BirthDate", item.BirthDate);
-                command.Parameters.AddWithValue("Address", item.Address);
-                command.Parameters.AddWithValue("City", item.City);
-                command.Parameters.AddWithValue("County", item.County);
-                command.Parameters.AddWithValue("PostalCode", item.PostalCode);
-                command.Parameters.AddWithValue("Phone", item.Phone);
-                if (this.Connection.State == System.Data.ConnectionState.Closed) this.Connection.Open();
-                id = Convert.ToInt32(command.ExecuteScalar());
-
-            }
-            catch (Exception ex)
-            {
-
-                
-            }
-            finally
-            {
-                if (this.Connection.State == System.Data.ConnectionState.Open) this.Connection.Close();
-            }
             return id;
+
         }
 
-
-        public void Delete(Customers item)
-        {
-        }
-        public int Deletee(Customers item)
-        {
-
-            int id = 0;
-            try
-            {
-                SqlCommand command = new SqlCommand("Sp_Customer_Delete", this.Connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("CustomerId", item.CustomerId);
-                if (this.Connection.State == System.Data.ConnectionState.Closed) this.Connection.Open();
-                id = Convert.ToInt32(command.ExecuteNonQuery());
-            }
-            catch (Exception)
-            {
-
-            }
-            finally
-            {
-                if (this.Connection.State == System.Data.ConnectionState.Open) this.Connection.Close();
-            }
-            return id;
-        }
 
         public List<Customers> Get()
         {
@@ -113,13 +59,13 @@ namespace Manav_Otomasyonu.Repository
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    var customer = CustomerMapping(reader);
+                    Customers customer = CustomerMapping(reader);
                     customers.Add(customer);
                 }
             }
             catch (Exception)
             {
-
+                throw;
 
             }
             finally
@@ -144,12 +90,12 @@ namespace Manav_Otomasyonu.Repository
 
         public Customers GetById(int id)
         {
-            Customers customers = null;
+            Customers customers = new Customers();
             try
             {
                 SqlCommand command = new SqlCommand("Sp_Customers", this.Connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@CustomerId", this.Connection);
+                command.Parameters.AddWithValue("@CustomerId", id);
                 if (this.Connection.State == System.Data.ConnectionState.Closed) this.Connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
@@ -158,10 +104,10 @@ namespace Manav_Otomasyonu.Repository
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-
+                throw;
             }
             finally
             {
@@ -170,7 +116,8 @@ namespace Manav_Otomasyonu.Repository
             return customers;
         }
 
-        public void Update(Customers item)
+
+        public int Update(Customers item)
         {
             int id = 0;
             try
@@ -189,40 +136,10 @@ namespace Manav_Otomasyonu.Repository
                 id = Convert.ToInt32(command.ExecuteScalar());
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-               
-            }
-            finally
-            {
-                if (this.Connection.State == System.Data.ConnectionState.Open) this.Connection.Close();
-            }
-
-        }
-        public int UppDate(Customers item)
-        {
-            int id = 0;
-            try
-            {
-                SqlCommand command = new SqlCommand("Sp_Update", this.Connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("CustomerId", item.CustomerId);
-                command.Parameters.AddWithValue("CustomerName", item.CustomerName);
-                command.Parameters.AddWithValue("BirthDate", item.BirthDate);
-                command.Parameters.AddWithValue("Address", item.Address);
-                command.Parameters.AddWithValue("City", item.City);
-                command.Parameters.AddWithValue("County", item.County);
-                command.Parameters.AddWithValue("PostalCode", item.PostalCode);
-                command.Parameters.AddWithValue("Phone", item.Phone);
-                if (this.Connection.State == System.Data.ConnectionState.Closed) this.Connection.Open();
-                id = Convert.ToInt32(command.ExecuteScalar());
-
-            }
-            catch (Exception ex)
-            {
-
-
+                throw;
             }
             finally
             {
@@ -231,6 +148,32 @@ namespace Manav_Otomasyonu.Repository
             return id;
         }
 
+        public void Delete(int id)
+        {
+            if(MessageBox.Show("Bu Kaydı Silmek istiyor Musunuz ?","Manav Uygulaması",MessageBoxButtons.OKCancel,MessageBoxIcon.Question)==DialogResult.OK)
+                {
+                if (MessageBox.Show("Bu Kaydı Silmek İstediğinizden Emin misiniz ?", "Silme İşlemi", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    try
+                    {
+                        SqlCommand command = new SqlCommand("Sp_Customer_Delete", this.Connection);
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("CustomerId", id);
+                        if (this.Connection.State == System.Data.ConnectionState.Closed) this.Connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        if (this.Connection.State == System.Data.ConnectionState.Open) this.Connection.Close();
+                    }
+                }
+            }
+            MessageBox.Show("Kaydınız Silinmiştir.");
+        }
 
     }
 }

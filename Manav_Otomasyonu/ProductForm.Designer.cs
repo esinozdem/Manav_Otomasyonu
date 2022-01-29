@@ -33,6 +33,8 @@ namespace Manav_Otomasyonu
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.cmbCustomers = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.nuUnitsOnOrder = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
@@ -43,8 +45,8 @@ namespace Manav_Otomasyonu
             this.txtQuantityPerUnit = new System.Windows.Forms.TextBox();
             this.txtProductName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cmbCustomers = new System.Windows.Forms.ComboBox();
+            this.cmbCategories = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuUnitsOnOrder)).BeginInit();
@@ -57,24 +59,25 @@ namespace Manav_Otomasyonu
             this.panel1.Controls.Add(this.btnDelete);
             this.panel1.Controls.Add(this.btnSave);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 241);
+            this.panel1.Location = new System.Drawing.Point(0, 279);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(590, 54);
+            this.panel1.Size = new System.Drawing.Size(552, 110);
             this.panel1.TabIndex = 0;
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(108, 7);
+            this.btnDelete.Location = new System.Drawing.Point(335, 16);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(72, 37);
             this.btnDelete.TabIndex = 3;
             this.btnDelete.Text = "Sil";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(12, 7);
+            this.btnSave.Location = new System.Drawing.Point(182, 16);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(72, 37);
             this.btnSave.TabIndex = 2;
@@ -84,6 +87,8 @@ namespace Manav_Otomasyonu
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.cmbCategories);
             this.panel2.Controls.Add(this.cmbCustomers);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label7);
@@ -100,13 +105,30 @@ namespace Manav_Otomasyonu
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(590, 241);
+            this.panel2.Size = new System.Drawing.Size(552, 279);
             this.panel2.TabIndex = 1;
+            // 
+            // cmbCustomers
+            // 
+            this.cmbCustomers.FormattingEnabled = true;
+            this.cmbCustomers.Location = new System.Drawing.Point(118, 111);
+            this.cmbCustomers.Name = "cmbCustomers";
+            this.cmbCustomers.Size = new System.Drawing.Size(395, 25);
+            this.cmbCustomers.TabIndex = 51;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(30, 114);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(69, 17);
+            this.label2.TabIndex = 50;
+            this.label2.Text = "Müşteriler";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(287, 112);
+            this.label7.Location = new System.Drawing.Point(284, 182);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(96, 17);
             this.label7.TabIndex = 49;
@@ -115,7 +137,7 @@ namespace Manav_Otomasyonu
             // nuUnitsOnOrder
             // 
             this.nuUnitsOnOrder.DecimalPlaces = 2;
-            this.nuUnitsOnOrder.Location = new System.Drawing.Point(405, 110);
+            this.nuUnitsOnOrder.Location = new System.Drawing.Point(402, 180);
             this.nuUnitsOnOrder.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -128,7 +150,7 @@ namespace Manav_Otomasyonu
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(287, 79);
+            this.label6.Location = new System.Drawing.Point(284, 149);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(84, 17);
             this.label6.TabIndex = 47;
@@ -137,7 +159,7 @@ namespace Manav_Otomasyonu
             // nuUnitsInStock
             // 
             this.nuUnitsInStock.DecimalPlaces = 2;
-            this.nuUnitsInStock.Location = new System.Drawing.Point(405, 80);
+            this.nuUnitsInStock.Location = new System.Drawing.Point(402, 150);
             this.nuUnitsInStock.Maximum = new decimal(new int[] {
             10000000,
             0,
@@ -150,7 +172,7 @@ namespace Manav_Otomasyonu
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(45, 118);
+            this.label5.Location = new System.Drawing.Point(62, 188);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(37, 17);
             this.label5.TabIndex = 45;
@@ -158,7 +180,7 @@ namespace Manav_Otomasyonu
             // 
             // nuUnitPrice
             // 
-            this.nuUnitPrice.Location = new System.Drawing.Point(122, 110);
+            this.nuUnitPrice.Location = new System.Drawing.Point(119, 180);
             this.nuUnitPrice.Name = "nuUnitPrice";
             this.nuUnitPrice.Size = new System.Drawing.Size(154, 25);
             this.nuUnitPrice.TabIndex = 44;
@@ -166,7 +188,7 @@ namespace Manav_Otomasyonu
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(45, 82);
+            this.label4.Location = new System.Drawing.Point(60, 152);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(39, 17);
             this.label4.TabIndex = 43;
@@ -174,49 +196,49 @@ namespace Manav_Otomasyonu
             // 
             // txtQuantityPerUnit
             // 
-            this.txtQuantityPerUnit.Location = new System.Drawing.Point(121, 76);
+            this.txtQuantityPerUnit.Location = new System.Drawing.Point(118, 146);
             this.txtQuantityPerUnit.Name = "txtQuantityPerUnit";
             this.txtQuantityPerUnit.Size = new System.Drawing.Size(155, 25);
             this.txtQuantityPerUnit.TabIndex = 42;
             // 
             // txtProductName
             // 
-            this.txtProductName.Location = new System.Drawing.Point(122, 36);
+            this.txtProductName.Location = new System.Drawing.Point(120, 27);
             this.txtProductName.Name = "txtProductName";
-            this.txtProductName.Size = new System.Drawing.Size(395, 25);
+            this.txtProductName.Size = new System.Drawing.Size(393, 25);
             this.txtProductName.TabIndex = 39;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(39, 39);
+            this.label1.Location = new System.Drawing.Point(37, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 17);
             this.label1.TabIndex = 36;
             this.label1.Text = "Ürün Adı";
             // 
-            // label2
+            // cmbCategories
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(45, 159);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 17);
-            this.label2.TabIndex = 50;
-            this.label2.Text = "Müşteriler";
+            this.cmbCategories.FormattingEnabled = true;
+            this.cmbCategories.Location = new System.Drawing.Point(120, 71);
+            this.cmbCategories.Name = "cmbCategories";
+            this.cmbCategories.Size = new System.Drawing.Size(393, 25);
+            this.cmbCategories.TabIndex = 52;
             // 
-            // cmbCustomers
+            // label3
             // 
-            this.cmbCustomers.FormattingEnabled = true;
-            this.cmbCustomers.Location = new System.Drawing.Point(122, 156);
-            this.cmbCustomers.Name = "cmbCustomers";
-            this.cmbCustomers.Size = new System.Drawing.Size(396, 25);
-            this.cmbCustomers.TabIndex = 51;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(30, 71);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(74, 17);
+            this.label3.TabIndex = 53;
+            this.label3.Text = "Kategoriler";
             // 
             // ProductForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(590, 295);
+            this.ClientSize = new System.Drawing.Size(552, 389);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -252,5 +274,7 @@ namespace Manav_Otomasyonu
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbCustomers;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cmbCategories;
     }
 }

@@ -14,11 +14,11 @@ namespace Manav_Otomasyonu
     using Repository;
     public partial class ProductList : Form
     {
-        ProductRepo productRepo;
+        ProductsRepo productRepo;
         public ProductList()
         {
             InitializeComponent();
-            productRepo = new ProductRepo();
+            productRepo = new ProductsRepo();
         }
 
         private void ProductList_Load(object sender, EventArgs e)
@@ -28,16 +28,22 @@ namespace Manav_Otomasyonu
 
         private void FillGrid()
         {
-            grdProduct.DataSource = productRepo.GetProducts();
+            grdProduct.DataSource = productRepo.GetVMProducts();
         }
 
         private void grdProduct_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1) return;
-            var customers = (grdProduct.DataSource as List<Entities.Products>)[e.RowIndex];
+            var product = (grdProduct.DataSource as List<VM.VMProduct>)[e.RowIndex];
             ProductForm form = new ProductForm();
-            form.ShowDialog();
+            form.Tag = product.ProductId;
+             form.ShowDialog();
             FillGrid();
+        }
+
+        private void grdProduct_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -23,22 +23,22 @@ namespace Manav_Otomasyonu
 
         private void CustomerList_Load(object sender, EventArgs e)
         {
-            FillGrid();
-        }
-             
-        private void FillGrid()
-        {
-            dataGridView1.DataSource = customersRepo.Get();
-        }
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex == -1) return;
-            var customers = (dataGridView1.DataSource as List<Entities.Customers>)[e.RowIndex];
-            CustomersForm form = new CustomersForm();
-            form.ShowDialog();
-            FillGrid();
+            FillDataGrid();
         }
 
-        
+        private void grdCustomers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1) return;
+            Customers customer = (grdCustomers.DataSource as List<Customers>)[e.RowIndex];
+            CustomersForm cform = new CustomersForm();
+            cform.Tag = customer.CustomerId;
+            cform.ShowDialog();
+            FillDataGrid();
+        }
+
+        private void FillDataGrid()
+        {
+            grdCustomers.DataSource = customersRepo.Get();
+        }
     }
 }

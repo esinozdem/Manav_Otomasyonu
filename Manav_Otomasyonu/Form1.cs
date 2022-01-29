@@ -13,12 +13,12 @@ namespace Manav_Otomasyonu
     using Repository;
     public partial class Form1 : Form
     {
-        ProductRepo productRepo;
+        ProductsRepo productRepo;
         CustomersRepo customersRepo;
         public Form1()
         {
             InitializeComponent();
-            productRepo = new ProductRepo();
+            productRepo = new ProductsRepo();
             customersRepo = new CustomersRepo();
         }
 
@@ -61,6 +61,18 @@ namespace Manav_Otomasyonu
         {
             ProductList plist = new ProductList();
             plist.ShowDialog();
+        }
+
+        private void kategoriListesiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CategoryList calist = new CategoryList();
+            calist.ShowDialog();
+        }
+
+        private void yeniKategoriToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CategoryForm catform = new CategoryForm();
+            catform.ShowDialog();
         }
     }
 }
